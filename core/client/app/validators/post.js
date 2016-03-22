@@ -29,8 +29,8 @@ export default BaseValidator.create({
     metaDescription(model) {
         let metaDescription = model.get('metaDescription');
 
-        if (!validator.isLength(metaDescription, 0, 200)) {
-            model.get('errors').add('metaDescription', 'Meta Description cannot be longer than 200 characters.');
+        if (!validator.isLength(metaDescription, 0, 1200)) {
+            model.get('errors').add('metaDescription', 'Meta Description cannot be longer than 1200 characters.');
             this.invalidate();
         }
     }
