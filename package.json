@@ -18,12 +18,12 @@
   "license": "MIT",
   "main": "./core/index",
   "scripts": {
-    "preinstall": "npm install semver && node -e \"require('./core/server/utils/startup-check.js').nodeVersion()\"",
+    "//": "\"preinstall\": \"npm install semver && node -e \"require('./core/server/utils/startup-check.js').nodeVersion()\"\"",
     "start": "node index",
     "test": "grunt validate --verbose"
   },
   "engines": {
-    "node": "~0.10.0 || ~0.12.0 || ^4.2.0",
+    "node": "4.4.0",
     "iojs": "~1.2.0"
   },
   "dependencies": {
@@ -84,6 +84,7 @@
     "grunt-contrib-uglify": "0.11.1",
     "grunt-contrib-watch": "0.6.1",
     "grunt-docker": "0.0.10",
+    "grunt-exec": "^0.4.6",
     "grunt-express-server": "0.5.1",
     "grunt-jscs": "2.7.0",
     "grunt-mocha-cli": "2.0.0",
@@ -104,6 +105,16 @@
     "top-gh-contribs": "2.0.2"
   },
   "greenkeeper": {
-    "ignore": ["bower", "bluebird", "glob", "lodash", "mysql", "nodemailer", "pg", "showdown-ghost", "validator"]
+    "ignore": [
+      "bower",
+      "bluebird",
+      "glob",
+      "lodash",
+      "mysql",
+      "nodemailer",
+      "pg",
+      "showdown-ghost",
+      "validator"
+    ]
   }
 }

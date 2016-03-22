@@ -28,6 +28,7 @@ var _              = require('lodash'),
         //
         // Find all of the task which start with `grunt-` and load them, rather than explicitly declaring them all
         require('matchdep').filterDev(['grunt-*', '!grunt-cli']).forEach(grunt.loadNpmTasks);
+        grunt.loadNpmTasks('grunt-exec');
 
         var cfg = {
             // #### Common paths used by tasks
@@ -432,6 +433,13 @@ var _              = require('lodash'),
                     files: {
                         'core/shared/ghost-url.min.js': 'core/shared/ghost-url.js'
                     }
+                }
+            },
+            
+            exec: {
+                ghostsearch : {
+                    cmd: 'npm install',
+                    cwd: "lib/ghost-search"
                 }
             }
         };
@@ -910,7 +918,7 @@ var _              = require('lodash'),
         // `bower` does have some quirks, such as not running as root. If you have problems please try running
         // `grunt init --verbose` to see if there are any errors.
         grunt.registerTask('init', 'Prepare the project for development',
-            ['shell:ember:init', 'shell:bower', 'update_submodules', 'assets', 'default']);
+            ['exec', 'shell:ember:init', 'shell:bower', 'update_submodules', 'assets', 'default']);
 
         // ### Basic Asset Building
         // Builds and moves necessary client assets. Prod additionally builds the ember app.
@@ -971,7 +979,7 @@ var _              = require('lodash'),
 
                 grunt.task.run(['init', 'prod', 'clean:release',  'shell:dedupe', 'shell:shrinkwrap', 'copy:release', 'compress:release']);
             }
-        );
+        );        
     };
 
 module.exports = configureGrunt;
