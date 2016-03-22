@@ -17,6 +17,8 @@ var _           = require('lodash'),
     formatResponse = require('./format-response'),
     setResponseContext = require('./context'),
     setRequestIsSecure = require('./secure'),
+    
+    fullText = require('../../../../lib/ghost-search'),
 
     frontendControllers,
     staticPostPermalink = routeMatch('/:slug/:edit?');
@@ -38,6 +40,34 @@ function renderPost(req, res) {
 }
 
 frontendControllers = {
+    archive: function(req, res, next) {
+        api.posts.browse({limit: 250}).then(function(result) {
+            res.render('archive', { posts: result.posts});              
+        });
+    },
+    search: function(req, res, next) {
+        var q = req.query.q;
+        if (q) {
+            api.posts.browse({limit: 250}).then(function(result) {
+                //var q = "blah";
+                
+                // load the index
+                fullText.load(result.posts);
+                
+                // run the query
+                var results = fullText.search(q);
+                var out = {
+                query: q,
+                count: results.length,
+                posts: results  
+                };
+
+                res.render('search', out);              
+            });            
+        } else {
+            res.redirect('/');
+        }
+    },
     preview: function preview(req, res, next) {
         var params = {
                 uuid: req.params.uuid,

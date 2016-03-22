@@ -46,6 +46,9 @@ frontendRoutes = function frontendRoutes(middleware) {
 
     // Channels
     router.use(channels.router());
+    
+    router.get('/archive', frontend.archive);
+    router.get('/search', frontend.search);
 
     // Default
     router.get('*', frontend.single);
